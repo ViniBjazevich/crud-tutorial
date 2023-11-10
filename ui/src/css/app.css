@@ -28,3 +28,11 @@ body {
   gap: 10px;
   margin: 0 1rem 1rem 1rem;
 }
+
+.flex {
+  display: flex;
+}
+
+.done {
+  text-decoration: line-through;
+}
