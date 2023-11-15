@@ -9,9 +9,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import Checkbox from "@mui/material/Checkbox";
 import classnames from "classnames";
 
-export const Task = ({ name }) => {
+export const Task = ({ task }) => {
+  const { name, completed } = task;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(completed);
 
   return (
     <div className="task">

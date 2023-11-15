@@ -1,6 +1,10 @@
 # Full Stack React Crud App Tutorial
-
 ## Instructions to start project
+1. Open your terminal and cd into the "ui" directory: `cd ui` then run `npm install` after that finishes installing you can now run `npm start` and your react app will start running on http://localhost:3000/
+2. Open a new terminal (with the react app still running) and cd into the "api" directory: `cd api` then run `npm install` after that is finished installing you can now run `npm run dev` which will run your api on http://localhost:3001/
+3. Assuming you have your DynamoDB set up properly you should be able to use the application now! Enjoy!
+
+## Instructions creating monorepo from scratch
 ### Creating React Application
 1. Create a new directory (folder) in your project called ui
 2. Open your terminal and cd into this new directory: `cd ui`
@@ -34,7 +38,7 @@ app.listen(port, () => {
     "dev": "nodemon index.js"
   },
 ```
-6. We can start our API. While in the api directory run `npm start` and you can now go to `http://localhost:3005/` to see the "Hello from express!" message.
+6. We can start our API. While in the api directory run `npm start` and you can now go to `http://localhost:3001/` to see the "Hello from express!" message.
 
 ### Pushing code to github
 1. Now is a good time to push your code to github. In the root directory of the project run: `git init` this will make the folder a git repository allowing us to run git commands in it.

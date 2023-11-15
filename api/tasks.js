@@ -19,9 +19,7 @@ export const fetchTasks = async () => {
   });
 
   const response = await docClient.send(command);
-  for (const task of response.Items) {
-    console.log(`${task.id} - (${task.name}, ${task.completed})`);
-  }
+
   return response;
 };
 
@@ -37,7 +35,7 @@ export const createTask = async ({ name, completed }) => {
   });
 
   const response = await docClient.send(command);
-  console.log(response);
+
   return response;
 };
 
@@ -59,7 +57,7 @@ export const updateTask = async ({ id, name, completed }) => {
   });
 
   const response = await docClient.send(command);
-  console.log(response);
+
   return response;
 };
 
@@ -72,17 +70,9 @@ export const deleteTask = async ({ id }) => {
   });
 
   const response = await docClient.send(command);
-  console.log(response);
+
   return response;
 };
-
-// createTask("dishes", false);
-
-// updateTask();
-
-// fetchTasks();
-
-// deleteTask({ id: "99341a94-b882-4dc1-a06f-9a2b589f22b2" });
 
 /*
   Helpful docs:

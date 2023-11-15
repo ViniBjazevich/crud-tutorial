@@ -1,60 +1,69 @@
 import express from "express";
-import {
-  createTask,
-  fetchTasks,
-  updateTask,
-  deleteTask,
-} from "./db/connection.js";
+import serverless from "serverless-http";
+import { createTask, fetchTasks, updateTask, deleteTask } from "./tasks.js";
+import cors from "cors";
 
 const app = express();
-const port = 3001;
 
-app.get("/task", (req, res) => {
+app.use(cors());
+app.use(express.json());
+
+app.get("/", async (req, res) => {
+  res.send("Hello world!");
+});
+
+app.get("/task", async (req, res) => {
   try {
-    const tasks = fetchTasks();
+    const tasks = await fetchTasks();
 
-    res.send(tasks);
+    res.send(tasks.Items);
   } catch (err) {
-    res.status(500).send("Error fetching tasks");
+    res.status(400).send(`Error fetching tasks: ${err}`);
   }
 });
 
-app.post("/task", (req, res) => {
-  try {
-    const task = req.body;
-
-    createTask(task);
-
-    res.send("Successfully created task: ", task);
-  } catch (err) {
-    res.status(500).send("Error creating task: ", task);
-  }
-});
-
-app.put("/task", (req, res) => {
+app.post("/task", async (req, res) => {
   try {
     const task = req.body;
 
-    updateTask(task);
+    const response = await createTask(task);
 
-    res.send("Successfully created task: ", task);
+    res.send(response);
   } catch (err) {
-    res.status(500).send("Error creating task: ", task);
+    res.status(400).send(`Error creating task: ${err}`);
   }
 });
 
-app.delete("/task", (req, res) => {
+app.put("/task", async (req, res) => {
   try {
     const task = req.body;
 
-    deleteTask(task);
+    const response = await updateTask(task);
 
-    res.send("Successfully created task: ", task);
+    res.send(response);
   } catch (err) {
-    res.status(500).send("Error creating task: ", task);
+    res.status(400).send(`Error updating task: ${err}`);
   }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.delete("/task", async (req, res) => {
+  try {
+    const task = req.body;
+
+    const response = await deleteTask(task);
+
+    res.send(response);
+  } catch (err) {
+    res.status(400).send(`Error deleting task: ${err}`);
+  }
 });
+
+if (process.env.DEVELOPMENT) {
+  const port = 3001;
+
+  app.listen(process.env.PORT || port, () => {
+    console.log(`Example app listening at localhost:${port}`);
+  });
+}
+
+export const handler = serverless(app);
