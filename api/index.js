@@ -1,11 +1,9 @@
 import express from "express";
 import serverless from "serverless-http";
 import { createTask, fetchTasks, updateTask, deleteTask } from "./tasks.js";
-import cors from "cors";
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
 app.get("/", async (req, res) => {
