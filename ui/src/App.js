@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Task } from "./components/Task";
 import axios from "axios";
 import { API_URL } from "./constants";
-import "./css/app.css";
 
 const darkTheme = createTheme({
   palette: {
