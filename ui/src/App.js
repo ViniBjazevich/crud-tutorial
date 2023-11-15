@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { AddTaskForm } from "./components/AddTaskForm";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Header } from "./components/Header";
 import { Task } from "./components/Task";
 import axios from "axios";
 import { API_URL } from "./constants";
@@ -34,7 +33,6 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Header />
       <AddTaskForm fetchTasks={fetchTasks} />
       {tasks.map((task) => (
         <Task fetchTasks={fetchTasks} task={task} key={task.id} />

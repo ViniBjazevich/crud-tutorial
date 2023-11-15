@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
@@ -23,21 +24,29 @@ export const AddTaskForm = ({ fetchTasks }) => {
     }
   };
 
-  const handleUpdateNewTask = (e) => setNewTask(e.target.value);
-
   return (
-    <div className="addTaskForm">
-      <TextField
-        size="small"
-        id="outlined-basic"
-        label="Task"
-        variant="outlined"
-        onChange={handleUpdateNewTask}
-        value={newTask}
-      />
-      <Button variant="outlined" onClick={handleCreateNewTask}>
-        <AddIcon />
-      </Button>
-    </div>
+    <>
+      <Typography
+        align={"center"}
+        variant="h2"
+        paddingTop={2}
+        paddingBottom={2}
+      >
+        My Task List
+      </Typography>
+      <div className="addTaskForm">
+        <TextField
+          size="small"
+          id="outlined-basic"
+          label="Task"
+          variant="outlined"
+          onChange={(e) => setNewTask(e.target.value)}
+          value={newTask}
+        />
+        <Button variant="outlined" onClick={handleCreateNewTask}>
+          <AddIcon />
+        </Button>
+      </div>
+    </>
   );
 };
