@@ -35,9 +35,9 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Header />
-      <AddTaskForm />
-      {tasks?.map((task) => (
-        <Task task={task} key={task.id} />
+      <AddTaskForm fetchTasks={fetchTasks} />
+      {tasks.map((task) => (
+        <Task fetchTasks={fetchTasks} task={task} key={task.id} />
       ))}
     </ThemeProvider>
   );

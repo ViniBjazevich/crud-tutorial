@@ -1,18 +1,41 @@
 import React, { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Checkbox from "@mui/material/Checkbox";
 import classnames from "classnames";
+import axios from "axios";
+import { API_URL } from "../constants";
+import { UpdateTaskForm } from "./UpdateTaskForm";
 
-export const Task = ({ task }) => {
-  const { name, completed } = task;
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+export const Task = ({ fetchTasks, task }) => {
+  const { id, name, completed } = task;
   const [isComplete, setIsComplete] = useState(completed);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleUpdateTaskCompletion = async () => {
+    try {
+      await axios.put(API_URL, {
+        id,
+        name,
+        completed: !isComplete,
+      });
+
+      setIsComplete((prev) => !prev);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      await axios.delete(`${API_URL}/${task.id}`);
+
+      await fetchTasks();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="task">
@@ -21,34 +44,23 @@ export const Task = ({ task }) => {
           done: isComplete,
         })}
       >
-        <Checkbox
-          checked={isComplete}
-          onChange={() => setIsComplete((prev) => !prev)}
-        />
+        <Checkbox checked={isComplete} onChange={handleUpdateTaskCompletion} />
         <Typography variant="h4">{name}</Typography>
       </div>
       <div className="taskButtons">
         <Button variant="contained" onClick={() => setIsDialogOpen(true)}>
           <EditIcon />
         </Button>
-        <Button variant="contained" color="error">
+        <Button variant="contained" color="error" onClick={handleDeleteTask}>
           <DeleteIcon />
         </Button>
       </div>
-      <Dialog open={isDialogOpen}>
-        <DialogTitle>Edit Task</DialogTitle>
-        <div className="dialog">
-          <TextField
-            size="small"
-            id="outlined-basic"
-            label="Outlined"
-            variant="outlined"
-          />
-          <Button variant="contained" onClick={() => setIsDialogOpen(false)}>
-            <CheckIcon />
-          </Button>
-        </div>
-      </Dialog>
+      <UpdateTaskForm
+        fetchTasks={fetchTasks}
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        task={task}
+      />
     </div>
   );
 };
