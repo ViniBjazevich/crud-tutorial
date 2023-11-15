@@ -40,7 +40,7 @@ export const UpdateTaskForm = ({
         <TextField
           size="small"
           id="outlined-basic"
-          label="Outlined"
+          label="Task"
           variant="outlined"
           onChange={(e) => setTaskName(e.target.value)}
         />

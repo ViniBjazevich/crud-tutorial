@@ -16,7 +16,7 @@ export const AddTaskForm = ({ fetchTasks }) => {
       });
 
       await fetchTasks();
-      
+
       setNewTask("");
     } catch (err) {
       console.log(err);
@@ -30,7 +30,7 @@ export const AddTaskForm = ({ fetchTasks }) => {
       <TextField
         size="small"
         id="outlined-basic"
-        label="Outlined"
+        label="Task"
         variant="outlined"
         onChange={handleUpdateNewTask}
         value={newTask}
