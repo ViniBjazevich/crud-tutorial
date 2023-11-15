@@ -10,10 +10,6 @@ export const AddTaskForm = ({ fetchTasks }) => {
   const [newTask, setNewTask] = useState("");
 
   const handleCreateNewTask = async () => {
-    if (!newTask.length) {
-      return;
-    }
-
     try {
       await axios.post(API_URL, {
         name: newTask,
@@ -47,7 +43,11 @@ export const AddTaskForm = ({ fetchTasks }) => {
           onChange={(e) => setNewTask(e.target.value)}
           value={newTask}
         />
-        <Button variant="outlined" onClick={handleCreateNewTask}>
+        <Button
+          variant="outlined"
+          onClick={handleCreateNewTask}
+          disabled={!newTask.length}
+        >
           <AddIcon />
         </Button>
       </div>
