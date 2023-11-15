@@ -44,11 +44,11 @@ app.put("/task", async (req, res) => {
   }
 });
 
-app.delete("/task", async (req, res) => {
+app.delete("/task/:id", async (req, res) => {
   try {
-    const task = req.body;
+    const { id } = req.params;
 
-    const response = await deleteTask(task);
+    const response = await deleteTask(id);
 
     res.send(response);
   } catch (err) {

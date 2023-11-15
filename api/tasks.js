@@ -13,8 +13,8 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export const fetchTasks = async () => {
   const command = new ScanCommand({
-    ProjectionExpression: "id, #name, completed",
     ExpressionAttributeNames: { "#name": "name" },
+    ProjectionExpression: "id, #name, completed",
     TableName: "Tasks",
   });
 
@@ -45,13 +45,13 @@ export const updateTask = async ({ id, name, completed }) => {
     Key: {
       id,
     },
+    ExpressionAttributeNames: {
+      "#name": "name",
+    },
     UpdateExpression: "set #name = :n, completed = :c",
     ExpressionAttributeValues: {
       ":n": name,
       ":c": completed,
-    },
-    ExpressionAttributeNames: {
-      "#name": "name",
     },
     ReturnValues: "ALL_NEW",
   });
@@ -61,7 +61,7 @@ export const updateTask = async ({ id, name, completed }) => {
   return response;
 };
 
-export const deleteTask = async ({ id }) => {
+export const deleteTask = async (id) => {
   const command = new DeleteCommand({
     TableName: "Tasks",
     Key: {
