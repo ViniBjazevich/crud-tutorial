@@ -10,6 +10,10 @@ export const AddTaskForm = ({ fetchTasks }) => {
   const [newTask, setNewTask] = useState("");
 
   const handleCreateNewTask = async () => {
+    if (!newTask.length) {
+      return;
+    }
+
     try {
       await axios.post(API_URL, {
         name: newTask,
